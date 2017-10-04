@@ -23,12 +23,17 @@ cc.Class({
         componentTiro.direcao = this._direcao;
     },*/
     tomarDano: function (dano) {
+        let jogador = this._alvo.getComponent("Jogador");
+        jogador.adicionarPontuacao(10);
         this.node.destroy();
     },
     mudarDirecao: function(){
         let direcao = this._alvo.position.sub(this.node.position);
         direcao = direcao.normalize();
         this._direcao = direcao;
+
+        let angulo = Math.atan2(direcao.y, direcao.x);
+        this.node.rotation = - angulo * (180 / Math.PI);
 
     },
     // called every frame, uncomment this function to activate update callback

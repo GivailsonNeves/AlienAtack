@@ -3,24 +3,20 @@ let Personagem  = require("Personagem");
 cc.Class({
     extends: Personagem,
 
-    properties: {
-        // foo: {
-        //    default: null,      // The default value will be used only when the component attaching
-        //                           to a node for the first time
-        //    url: cc.Texture2D,  // optional, default is typeof default
-        //    serializable: true, // optional, default is true
-        //    visible: true,      // optional, default is true
-        //    displayName: 'Foo', // optional
-        //    readonly: false,    // optional, default is false
-        // },
-        // ...
+    properties: {      
+       
+        barraVida: cc.ProgressBar,
         _acelerando: false,        
-        vida: 100,
+        _vidaAtual: 0,
+        vidaMaxima: 100,
         velocidade: 200,
+        pontuacao: 0,
+        label: cc.Label,
     },
 
     // use this for initialization
     onLoad: function () {
+        this._vidaAtual = this.vidaMaxima;
         cc.systemEvent.on(cc.SystemEvent.EventType.KEY_DOWN, this.teclaPressionada, this);
         cc.systemEvent.on(cc.SystemEvent.EventType.KEY_UP, this.teclaSolta, this);
 
@@ -29,6 +25,8 @@ cc.Class({
         canvas.on("mousedown", this.atirar, this);
 
         cc.director.getCollisionManager().enabled = true;
+        this.barraVida.progress = 1;
+        this.label.string = "Pontos: " + this.pontuacao;
     },
     /*
     atirar: function(evt){
@@ -46,7 +44,15 @@ cc.Class({
         let direcao = positionMouse.sub(this.node.position);
 
         this._direcao = direcao.normalize();
+
+        let angulo = Math.atan2(direcao.y, direcao.x);
+        this.node.rotation = - angulo * (180/Math.PI);
         //cc.log(evt);
+    },
+    adicionarPontuacao: function(pontos)
+    {
+        this.pontuacao += pontos;
+        this.label.string = "Pontos: "+this.pontuacao;
     },
     teclaPressionada: function(evt){
         //cc.log(evt);
@@ -59,7 +65,9 @@ cc.Class({
             this._acelerando = false;
     },
     tomarDano: function (dano) {
-        this.vida -= dano;
+        this._vidaAtual -= dano;
+        let prctVida = this._vidaAtual / this.vidaMaxima;
+        this.barraVida.progress = prctVida;
     },
     // called every frame, uncomment this function to activate update callback
     update: function (dt) {

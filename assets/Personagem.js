@@ -17,6 +17,9 @@ let Personagem = cc.Class({
         disparo.group = this.node.group;
         let componentTiro = disparo.getComponent("Tiro");
         componentTiro.direcao = this._direcao;
+
+        let angulo = Math.atan2(this._direcao.y, this._direcao.x);
+        disparo.rotation = - angulo * (180 / Math.PI);    
     },
     tomarDano: function(){
 
