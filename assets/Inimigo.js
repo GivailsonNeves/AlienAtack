@@ -38,8 +38,9 @@ cc.Class({
     },
     // called every frame, uncomment this function to activate update callback
     update: function (dt) {
+        
         this.mudarDirecao();
         let deslocamento = this._direcao.mul(this.velocidade * dt);
-        this.node.position = this.node.position.add( deslocamento );
+        this.node.position = this.node.position.add( deslocamento );        
     },
 });

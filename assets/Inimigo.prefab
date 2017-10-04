@@ -56,8 +56,8 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 545,
-      "y": 308
+      "x": 772,
+      "y": 168
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -129,7 +129,7 @@
       "__uuid__": "54ab6b54-e6b5-4f7c-863e-4777ca32d052"
     },
     "_alvo": null,
-    "velocidade": 50,
+    "velocidade": 90,
     "tempoAtaque": 1
   },
   {

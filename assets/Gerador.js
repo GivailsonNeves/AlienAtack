@@ -5,6 +5,7 @@ cc.Class({
         inimigoPrefab: cc.Prefab,
         area: 10,
         tempo: 2,
+        espera: 3,
     },
     gerar: function(){
         let inimigo = cc.instantiate(this.inimigoPrefab);
@@ -19,6 +20,9 @@ cc.Class({
 
     // use this for initialization
     onLoad: function () {
+        this.scheduleOnce(this.iniciarGeracao, this.espera);
+    },
+    iniciarGeracao: function() {
         this.schedule(this.gerar, this.tempo);
     },
 

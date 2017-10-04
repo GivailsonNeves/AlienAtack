@@ -68,6 +68,10 @@ cc.Class({
         this._vidaAtual -= dano;
         let prctVida = this._vidaAtual / this.vidaMaxima;
         this.barraVida.progress = prctVida;
+
+        if(this._vidaAtual <= 0){
+            cc.director.loadScene("GameOver");
+        }
     },
     // called every frame, uncomment this function to activate update callback
     update: function (dt) {
